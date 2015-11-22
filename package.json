@@ -1,0 +1,27 @@
+{
+  "name": "es2015-training",
+  "version": "0.0.0",
+  "description": "ES2015 training project.",
+  "main": " ",
+  "dependencies": {
+    "systemjs": "^0.19.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neoziro/es2015-training.git"
+  },
+  "keywords": [
+    "training",
+    "es2015"
+  ],
+  "author": "Greg Bergé <berge.greg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neoziro/es2015-training/issues"
+  },
+  "homepage": "https://github.com/neoziro/es2015-training#readme"
+}

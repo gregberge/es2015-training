@@ -5,6 +5,10 @@
     <title></title>
   </head>
   <body>
-    <script src="hello-world-bundle.js"></script>
+    <script src="node_modules/systemjs/dist/system.js"></script>
+    <script>
+      System.defaultJSExtensions = true;
+      System.import('hello-world.js');
+    </script>
   </body>
 </html>
