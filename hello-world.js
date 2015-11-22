@@ -1,3 +1,4 @@
+'use strict';
 function Hello(name) {
   this.name = name;
 }
