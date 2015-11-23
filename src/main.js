@@ -15,9 +15,8 @@ rateForm.addEventListener('submit', function (event) {
 
   const buzzWords = buzz
     .split(',')
-    .map(function (word) {
-      return word.trim().toLowerCase();
-    });
+    .map(word => word.trim().toLowerCase())
+    .filter(word => word);
 
   const invalidReason = validData({
     movie,

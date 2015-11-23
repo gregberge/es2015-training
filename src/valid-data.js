@@ -3,6 +3,14 @@ export const RATE_REQUIRED = Symbol('rate-required');
 export const INVALID_RATE = Symbol('invalid-rate');
 export const INVALID_BUZZ = Symbol('invalid-feeling');
 
+const VALID_BUZZ_WORDS = ['amazing', 'hilarious', 'sad', 'bad'];
+
+const validateBuzzWords = (...words) =>
+  words.every(isValidBuzzWord);
+
+const isValidBuzzWord = word =>
+  VALID_BUZZ_WORDS.some(w => w === word);
+
 export default function ({movie = null, rate = null, buzzWords = []}) {
   if (!movie)
     return MOVIE_REQUIRED;
@@ -19,16 +27,4 @@ export default function ({movie = null, rate = null, buzzWords = []}) {
     return INVALID_BUZZ;
 
   return null;
-}
-
-const VALID_BUZZ_WORDS = ['amazing', 'hilarious', 'sad', 'bad'];
-
-function validateBuzzWords(...words) {
-  return words.every(isValidBuzzWord);
-}
-
-function isValidBuzzWord(buzzWord) {
-  return VALID_BUZZ_WORDS.some(function (word) {
-    return word === buzzWord;
-  });
 }
