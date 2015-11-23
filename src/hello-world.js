@@ -7,7 +7,7 @@ console.log(
     .map(function () {
       return new HelloDate().id;
     })
-    .filter(function (id, index) { 
+    .filter(function (id, index) {
       return index >= 2;
     })
     .join('-')
