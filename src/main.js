@@ -4,10 +4,22 @@ const rateForm = document.getElementById('rateForm');
 rateForm.addEventListener('submit', function (event) {
   event.preventDefault();
 
-  const {movie: {value: movie}, rate: {value: rate}} = rateForm;
+  const {
+    movie: {value: movie},
+    rate: {value: rate},
+    buzz: {value: buzz}
+  } = rateForm;
+
+  const buzzWords = buzz
+    .split(',')
+    .map(function (word) {
+      return word.trim().toLowerCase();
+    });
+
   const invalidReason = validData({
     movie: movie,
-    rate: rate
+    rate: rate,
+    buzzWords: buzzWords
   });
 
   const alert = rateForm.querySelector('.alert');
@@ -20,6 +32,8 @@ rateForm.addEventListener('submit', function (event) {
         return `Rate required.`
       case validData.INVALID_RATE:
         return `Invalid rate ${rate}.`;
+      case validData.INVALID_BUZZ:
+        return `Invalid buzz words ${buzzWords.join(', ')}`;
     }
 
     return `The movie ${movie} has been rated ${rate}!`;
