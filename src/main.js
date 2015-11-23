@@ -1,12 +1,12 @@
-var rateForm = document.getElementById('rateForm');
+const rateForm = document.getElementById('rateForm');
 
 rateForm.addEventListener('submit', function (event) {
   event.preventDefault();
 
-  var alert = rateForm.querySelector('.alert');
-  var rate = +rateForm.rate.value;
-  var movie = rateForm.movie.value;
-  var valid = Number.isInteger(rate) && rate >= 1 && rate <= 5;
+  const alert = rateForm.querySelector('.alert');
+  const rate = +rateForm.rate.value;
+  const movie = rateForm.movie.value;
+  const valid = Number.isInteger(rate) && rate >= 1 && rate <= 5;
 
   alert.style.display = 'block';
 

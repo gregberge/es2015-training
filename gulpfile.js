@@ -1,6 +1,8 @@
-var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
-var babel = require('gulp-babel');
+'use strict';
+
+const gulp = require('gulp');
+const browserSync = require('browser-sync').create();
+const babel = require('gulp-babel');
 
 gulp.task('browserSync', function () {
   browserSync.init({
