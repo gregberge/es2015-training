@@ -4,6 +4,7 @@
   "description": "ES2015 training project.",
   "main": " ",
   "dependencies": {
+    "babel-polyfill": "^6.2.0",
     "systemjs": "^0.19.6"
   },
   "devDependencies": {

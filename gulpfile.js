@@ -6,7 +6,8 @@ gulp.task('browserSync', function () {
   browserSync.init({
     server: {
       baseDir: './'
-    }
+    },
+    files: ['index.html', 'src/**/*.js']
   })
 });
 
