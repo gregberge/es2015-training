@@ -4,8 +4,7 @@ const rateForm = document.getElementById('rateForm');
 rateForm.addEventListener('submit', function (event) {
   event.preventDefault();
 
-  const movie = rateForm.movie.value;
-  const rate = rateForm.rate.value;
+  const {movie: {value: movie}, rate: {value: rate}} = rateForm;
   const invalidReason = validData({
     movie: movie,
     rate: rate

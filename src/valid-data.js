@@ -2,14 +2,14 @@ const MOVIE_REQUIRED = Symbol('movie-required');
 const RATE_REQUIRED = Symbol('rate-required');
 const INVALID_RATE = Symbol('invalid-rate');
 
-module.exports = function (values) {
-  if (!values.movie)
+module.exports = function ({movie = null, rate = null}) {
+  if (!movie)
     return MOVIE_REQUIRED;
 
-  if (!values.rate)
+  if (!rate)
     return RATE_REQUIRED;
 
-  const rateNumber = +values.rate;
+  const rateNumber = +rate;
 
   if (!Number.isInteger(rateNumber) || rateNumber < 1 || rateNumber > 5)
     return INVALID_RATE;
