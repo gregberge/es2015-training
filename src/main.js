@@ -48,8 +48,12 @@ rateForm.addEventListener('submit', function (event) {
       formGroup.classList[invalidReason ? 'add' : 'remove']('has-error')
     );
 
-  if (!invalidReason)
+  if (!invalidReason) {
     reviews.push(review);
+
+    for (let review of reviews.values())
+      console.log(review + '');
+  }
 
   setElementStyle(alert, {display: 'block'});
 

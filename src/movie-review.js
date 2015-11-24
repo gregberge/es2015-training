@@ -20,6 +20,10 @@ export default class MovieReview extends Review {
 
     return null;
   }
+
+  toString() {
+    return `Movie ${this.raw.movie}, rated ${this.raw.rate}, buzz ${this.raw.buzz}`;
+  }
 }
 
 MovieReview.MOVIE_REQUIRED = Symbol('movie-required');
