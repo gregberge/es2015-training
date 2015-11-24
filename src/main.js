@@ -1,11 +1,16 @@
+import ReviewList from './review-list';
 import MovieReview from './movie-review';
 import {setElementStyle} from './dom-util';
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const rateForm = document.getElementById('rateForm');
 =======
 const reviews = [];
 >>>>>>> 3488484... Exercise 25 : add movie list, has-error class
+=======
+const reviews = new ReviewList();
+>>>>>>> c0c4a31... Exercise 27: review list iterable
 
 rateForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -17,16 +22,13 @@ rateForm.addEventListener('submit', function (event) {
   } = rateForm;
 
   const review = new MovieReview({movie, rate, buzz});
-  const MOVIE_ALREADY_EXIST = Symbol('already-exist');
-  const invalidReason = review.validate()
-    || reviews.find(r => r.raw.movie === r.raw.movie)
-      ? MOVIE_ALREADY_EXIST : null;
+  const invalidReason = reviews.add(review);
 
   const alert = rateForm.querySelector('.alert');
 
   function getMessage() {
     switch (invalidReason) {
-      case MOVIE_ALREADY_EXIST:
+      case ReviewList.MOVIE_ALREADY_EXIST:
         return 'Movie already exist';
       case MovieReview.MOVIE_REQUIRED:
         return `Movie required.`;
@@ -49,9 +51,7 @@ rateForm.addEventListener('submit', function (event) {
     );
 
   if (!invalidReason) {
-    reviews.push(review);
-
-    for (let review of reviews.values())
+    for (let review of reviews)
       console.log(review + '');
   }
 
