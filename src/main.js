@@ -1,7 +1,11 @@
 import MovieReview from './movie-review';
 import {setElementStyle} from './dom-util';
 
+<<<<<<< HEAD
 const rateForm = document.getElementById('rateForm');
+=======
+const reviews = [];
+>>>>>>> 3488484... Exercise 25 : add movie list, has-error class
 
 rateForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -13,12 +17,17 @@ rateForm.addEventListener('submit', function (event) {
   } = rateForm;
 
   const review = new MovieReview({movie, rate, buzz});
-  const invalidReason = review.validate();
+  const MOVIE_ALREADY_EXIST = Symbol('already-exist');
+  const invalidReason = review.validate()
+    || reviews.find(r => r.raw.movie === r.raw.movie)
+      ? MOVIE_ALREADY_EXIST : null;
 
   const alert = rateForm.querySelector('.alert');
 
   function getMessage() {
     switch (invalidReason) {
+      case MOVIE_ALREADY_EXIST:
+        return 'Movie already exist';
       case MovieReview.MOVIE_REQUIRED:
         return `Movie required.`;
       case MovieReview.RATE_REQUIRED:
@@ -32,9 +41,15 @@ rateForm.addEventListener('submit', function (event) {
       default:
         return 'Unknown error';
     }
-
-
   }
+
+  Array.from(document.getElementsByClassName('form-group'))
+    .forEach(formGroup =>
+      formGroup.classList[invalidReason ? 'add' : 'remove']('has-error')
+    );
+
+  if (!invalidReason)
+    reviews.push(review);
 
   setElementStyle(alert, {display: 'block'});
 
