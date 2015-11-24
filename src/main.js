@@ -1,5 +1,4 @@
-import validData,
-  {MOVIE_REQUIRED, RATE_REQUIRED, INVALID_RATE, INVALID_BUZZ} from './valid-data';
+import MovieReview from './movie-review';
 import {setElementStyle} from './dom-util';
 
 const rateForm = document.getElementById('rateForm');
@@ -13,32 +12,28 @@ rateForm.addEventListener('submit', function (event) {
     buzz: {value: buzz}
   } = rateForm;
 
-  const buzzWords = buzz
-    .split(',')
-    .map(word => word.trim().toLowerCase())
-    .filter(word => word);
-
-  const invalidReason = validData({
-    movie,
-    rate,
-    buzzWords
-  });
+  const review = new MovieReview({movie, rate, buzz});
+  const invalidReason = review.validate();
 
   const alert = rateForm.querySelector('.alert');
 
   function getMessage() {
     switch (invalidReason) {
-      case MOVIE_REQUIRED:
+      case MovieReview.MOVIE_REQUIRED:
         return `Movie required.`;
-      case RATE_REQUIRED:
+      case MovieReview.RATE_REQUIRED:
         return `Rate required.`
-      case INVALID_RATE:
+      case MovieReview.INVALID_RATE:
         return `Invalid rate ${rate}.`;
-      case INVALID_BUZZ:
-        return `Invalid buzz words ${buzzWords.join(', ')}`;
+      case MovieReview.INVALID_BUZZ:
+        return `Invalid buzz words ${buzz}.`;
+      case null:
+        return `The movie ${movie} has been rated ${rate}!`;
+      default:
+        return 'Unknown error';
     }
 
-    return `The movie ${movie} has been rated ${rate}!`;
+
   }
 
   setElementStyle(alert, {display: 'block'});
