@@ -2,15 +2,8 @@ import ReviewList from './review-list';
 import MovieReview from './movie-review';
 import {setElementStyle} from './dom-util';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 const rateForm = document.getElementById('rateForm');
-=======
-const reviews = [];
->>>>>>> 3488484... Exercise 25 : add movie list, has-error class
-=======
 const reviews = new ReviewList();
->>>>>>> c0c4a31... Exercise 27: review list iterable
 
 rateForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -67,4 +60,25 @@ rateForm.addEventListener('submit', function (event) {
 
   if (movie.includes('dark'))
     setElementStyle(document.body, {background: 'black'});
+});
+
+// co example
+
+function co(genFunc) {
+  const genObj = genFunc();
+  const run = previousValue => {
+    const {value, done} = genObj.next(previousValue);
+    if (!done)
+      run(value);
+  };
+
+  run();
+}
+
+function sayHello() {
+  return 'hello world!';
+}
+
+co(function* () {
+  console.log((yield sayHello()));
 });

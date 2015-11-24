@@ -15,18 +15,8 @@ export default class ReviewList {
     return null;
   }
 
-  [Symbol.iterator]() {
-    let i = 0;
-    let reviews = this.reviews;
-    return {
-      [Symbol.iterator]() {
-        return this;
-      },
-      next() {
-        return i < reviews.length
-          ? {value: reviews[i++]} : {done: true};
-      }
-    }
+  * [Symbol.iterator]() {
+    yield* this.reviews;
   }
 }
 
