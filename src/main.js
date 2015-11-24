@@ -1,6 +1,8 @@
-const validData = require('./valid-data');
+import validData,
+  {MOVIE_REQUIRED, RATE_REQUIRED, INVALID_RATE, INVALID_BUZZ} from './valid-data';
+import {setElementStyle} from './dom-util';
+
 const rateForm = document.getElementById('rateForm');
-const setElementStyle = require('./dom-util').setElementStyle;
 
 rateForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -27,13 +29,13 @@ rateForm.addEventListener('submit', function (event) {
 
   function getMessage() {
     switch (invalidReason) {
-      case validData.MOVIE_REQUIRED:
+      case MOVIE_REQUIRED:
         return `Movie required.`;
-      case validData.RATE_REQUIRED:
+      case RATE_REQUIRED:
         return `Rate required.`
-      case validData.INVALID_RATE:
+      case INVALID_RATE:
         return `Invalid rate ${rate}.`;
-      case validData.INVALID_BUZZ:
+      case INVALID_BUZZ:
         return `Invalid buzz words ${buzzWords.join(', ')}`;
     }
 
@@ -51,5 +53,5 @@ rateForm.addEventListener('submit', function (event) {
     new Audio('http://downloadwap.com/mp3tones/rtones/new/tv-movie/james_bond_007_original-4820.mp3').play();
 
   if (movie.includes('dark'))
-    setElementStyle(body, {background: 'black'});
+    setElementStyle(document.body, {background: 'black'});
 });

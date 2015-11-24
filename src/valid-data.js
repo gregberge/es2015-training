@@ -1,9 +1,9 @@
-const MOVIE_REQUIRED = Symbol('movie-required');
-const RATE_REQUIRED = Symbol('rate-required');
-const INVALID_RATE = Symbol('invalid-rate');
-const INVALID_BUZZ = Symbol('invalid-feeling');
+export const MOVIE_REQUIRED = Symbol('movie-required');
+export const RATE_REQUIRED = Symbol('rate-required');
+export const INVALID_RATE = Symbol('invalid-rate');
+export const INVALID_BUZZ = Symbol('invalid-feeling');
 
-module.exports = function ({movie = null, rate = null, buzzWords = []}) {
+export default function ({movie = null, rate = null, buzzWords = []}) {
   if (!movie)
     return MOVIE_REQUIRED;
 
@@ -19,7 +19,7 @@ module.exports = function ({movie = null, rate = null, buzzWords = []}) {
     return INVALID_BUZZ;
 
   return null;
-};
+}
 
 const VALID_BUZZ_WORDS = ['amazing', 'hilarious', 'sad', 'bad'];
 
@@ -32,10 +32,3 @@ function isValidBuzzWord(buzzWord) {
     return word === buzzWord;
   });
 }
-
-
-
-module.exports.MOVIE_REQUIRED = MOVIE_REQUIRED;
-module.exports.RATE_REQUIRED = RATE_REQUIRED;
-module.exports.INVALID_RATE = INVALID_RATE;
-module.exports.INVALID_BUZZ = INVALID_BUZZ;
