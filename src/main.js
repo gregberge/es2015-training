@@ -59,6 +59,7 @@ rateForm.addEventListener('submit', function (event) {
   alert.classList.toggle('alert-danger', invalidReason);
   alert.classList.toggle('alert-success', !invalidReason);
   alert.innerHTML = getMessage();
+  setTimeout(() => setElementStyle(alert, {display: 'none'}), 2000);
 
   // Display buzz words
   const buzzWords = document.querySelector('#buzzWords');
