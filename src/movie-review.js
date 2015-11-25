@@ -15,10 +15,22 @@ export default class MovieReview extends Review {
     if (!this.raw.movie)
       return MovieReview.MOVIE_REQUIRED;
 
-    if (!isValidBuzz(this.raw.buzz))
+    if (!isValidBuzzWords(this.getBuzzWords()))
       return MovieReview.INVALID_BUZZ;
 
     return null;
+  }
+
+  /**
+   * Get buzz words.
+   *
+   * @returns {Iterable}
+   */
+  getBuzzWords() {
+    return this.raw.buzz
+      .split(',')
+      .map(word => word.trim().toLowerCase())
+      .filter(word => word);
   }
 
   toString() {
@@ -37,15 +49,11 @@ MovieReview.INVALID_BUZZ = Symbol('invalid-feeling');
 const VALID_BUZZ_WORDS = ['amazing', 'hilarious', 'sad', 'bad'];
 
 /**
- * Valid a buzz field.
+ * Test if buzz words are valid.
  *
- * @param {string} buzz
+ * @param {string[]} words
  * @returns {boolean}
  */
-function isValidBuzz(buzz) {
-  return buzz
-    .split(',')
-    .map(word => word.trim().toLowerCase())
-    .filter(word => word)
-    .every(word => VALID_BUZZ_WORDS.some(w => w === word));
+function isValidBuzzWords(words) {
+  return words.every(word => VALID_BUZZ_WORDS.some(w => w === word));
 }

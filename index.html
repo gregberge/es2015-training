@@ -8,6 +8,7 @@
   <body>
     <div class="container">
       <h2>Rate your movie</h2>
+
       <form id="rateForm">
         <div class="alert" style="display: none"></div>
         <div class="form-group">
@@ -21,9 +22,12 @@
         <div class="form-group">
           <label for="rate">Buzz words</label>
           <input class="form-control" type="text" name="buzz" id="buzz">
+          <div id="buzzWords"></div>
         </div>
         <button class="btn btn-primary">Submit</button>
       </form>
+
+      <div id="reviews"></div>
     </div>
 
     <script src="node_modules/babel-polyfill/dist/polyfill.js"></script>

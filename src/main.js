@@ -4,6 +4,13 @@ import {setElementStyle} from './dom-util';
 
 const rateForm = document.getElementById('rateForm');
 const reviews = new ReviewList();
+const elementReviews = new WeakMap();
+
+function getReviewForElement(element) {
+  return elementReviews.get(element);
+}
+
+window.getReviewForElement = getReviewForElement;
 
 rateForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -16,8 +23,6 @@ rateForm.addEventListener('submit', function (event) {
 
   const review = new MovieReview({movie, rate, buzz});
   const invalidReason = reviews.add(review);
-
-  const alert = rateForm.querySelector('.alert');
 
   function getMessage() {
     switch (invalidReason) {
@@ -48,16 +53,32 @@ rateForm.addEventListener('submit', function (event) {
       console.log(review + '');
   }
 
+  // Display alert message
+  const alert = rateForm.querySelector('.alert');
   setElementStyle(alert, {display: 'block'});
-
   alert.classList.toggle('alert-danger', invalidReason);
   alert.classList.toggle('alert-success', !invalidReason);
-
   alert.innerHTML = getMessage();
 
+  // Display buzz words
+  const buzzWords = document.querySelector('#buzzWords');
+  buzzWords.innerHTML = [...reviews.buzzWords].join(', ');
+
+  // Clear reviews
+  const reviewsElement = document.querySelector('#reviews');
+  reviewsElement.innerHTML = '';
+
+  // Display reviews
+  [...reviews].forEach(review => {
+    const reviewElement = document.createElement('div');
+    reviewElement.innerHTML = String(review);
+    reviewsElement.appendChild(reviewElement);
+    elementReviews.set(reviewElement, review);
+  });
+
+  // Features
   if (movie.startsWith('007'))
     new Audio('http://downloadwap.com/mp3tones/rtones/new/tv-movie/james_bond_007_original-4820.mp3').play();
-
   if (movie.includes('dark'))
     setElementStyle(document.body, {background: 'black'});
 });
