@@ -3,7 +3,7 @@ import MovieReview from './movie-review';
 import {setElementStyle, delay} from './dom-util';
 
 const rateForm = document.getElementById('rateForm');
-const reviews = new ReviewList();
+const reviews = window.reviews = new ReviewList();
 const elementReviews = new WeakMap();
 
 function getReviewForElement(element) {
@@ -11,6 +11,15 @@ function getReviewForElement(element) {
 }
 
 window.getReviewForElement = getReviewForElement;
+
+
+const ElementWithClass = new Proxy({}, {
+  get(target, propKey) {
+    return [...document.getElementsByClassName(propKey)];
+  }
+});
+
+Object.assign(window, {ElementWithClass})
 
 // Display header 3 sec later
 delay(3000)
