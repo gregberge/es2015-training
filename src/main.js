@@ -1,6 +1,6 @@
 import ReviewList from './review-list';
 import MovieReview from './movie-review';
-import {setElementStyle} from './dom-util';
+import {setElementStyle, delay} from './dom-util';
 
 const rateForm = document.getElementById('rateForm');
 const reviews = new ReviewList();
@@ -11,6 +11,12 @@ function getReviewForElement(element) {
 }
 
 window.getReviewForElement = getReviewForElement;
+
+// Display header 3 sec later
+delay(3000)
+  .then(() => fetch('/header.html'))
+  .then(res => res.text())
+  .then(text => document.querySelector('header').innerHTML = text);
 
 rateForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -59,7 +65,7 @@ rateForm.addEventListener('submit', function (event) {
   alert.classList.toggle('alert-danger', invalidReason);
   alert.classList.toggle('alert-success', !invalidReason);
   alert.innerHTML = getMessage();
-  setTimeout(() => setElementStyle(alert, {display: 'none'}), 2000);
+  delay(2000).then(() => setElementStyle(alert, {display: 'none'}));
 
   // Display buzz words
   const buzzWords = document.querySelector('#buzzWords');
@@ -86,21 +92,29 @@ rateForm.addEventListener('submit', function (event) {
 
 // co example
 
-function co(genFunc) {
-  const genObj = genFunc();
-  const run = previousValue => {
-    const {value, done} = genObj.next(previousValue);
-    if (!done)
-      run(value);
-  };
-
-  run();
-}
-
-function sayHello() {
-  return 'hello world!';
-}
-
-co(function* () {
-  console.log((yield sayHello()));
-});
+// function co(genFunc) {
+//   const genObj = genFunc();
+//   const run = previousPromise => {
+//     if (typeof previousPromise === 'undefined') {
+//       const {value, done} = genObj.next();
+//       if (!done)
+//         run(value);
+//     } else {
+//       previousPromise.then(res => {
+//         const {value, done} = genObj.next(res);
+//         if (!done)
+//           run(value);
+//       });
+//     }
+//
+//   };
+//
+//   run();
+// }
+//
+// co(function* () {
+//   yield delay(3000);
+//   let res = yield fetch('/header.html');
+//   let text = yield res.text();
+//   document.querySelector('header').innerHTML = text;
+// });
